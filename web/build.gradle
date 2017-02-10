@@ -15,8 +15,8 @@ apply plugin: "org.springframework.boot"
 
 dependencies {
     compile(
-
             project(":business"),
+            "org.thymeleaf:thymeleaf:${version_thymeleaf}",
     )
 
     runtime(
