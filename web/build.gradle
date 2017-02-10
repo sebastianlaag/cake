@@ -1,0 +1,62 @@
+buildscript {
+    repositories {
+        mavenCentral()
+        jcenter()
+    }
+
+    dependencies {
+        classpath "org.springframework.boot:spring-boot-gradle-plugin:${version_spring_boot}"
+    }
+
+}
+
+apply plugin: "war"
+apply plugin: "org.springframework.boot"
+
+dependencies {
+    compile(
+
+            project(":business"),
+    )
+
+    runtime(
+            //DB
+            "mysql:mysql-connector-java:${version_mysql_connector_java}",
+            "com.h2database:h2:${version_h2}"
+    )
+
+    providedCompile(
+            "org.springframework.boot:spring-boot-starter-tomcat:${version_spring_boot}",
+    )
+
+}
+
+bootRun {
+    // Default configuration for running application via bootRun task in development mode.
+    // In production, these properties are defined in application.properties!
+
+    // See default application.properties for more options.
+    jvmArgs "-Xdebug",
+            "-Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=9009",
+            "-Dserver.port=9090",
+            "-Dwicket.configuration=DEVELOPMENT",
+            "-Dspring.datasource.url=jdbc:h2:mem:caketastic-db",
+            "-Dspring.datasource.driverClassName=org.h2.Driver",
+            "-Dspring.datasource.username=sa",
+            "-Dspring.datasource.password=",
+            "-Dspring.jpa.hibernate.ddl-auto=update",
+            "-Dlogging.level.org.hibernate.SQL=DEBUG"
+}
+
+// create a JAR file instead of putting all class files into WEB-INF
+jar {
+    enabled = true
+    baseName = projectBaseName
+}
+
+war {
+    baseName = projectBaseName
+    from "src/main/webapp"
+    classpath = jar
+    webInf { from 'src/main/webapp/WEB-INF' } // adds a file-set to the WEB-INF dir.
+}

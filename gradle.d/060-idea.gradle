@@ -1,0 +1,53 @@
+allprojects {
+
+    apply plugin: 'idea'
+
+    idea {
+
+        module {
+            inheritOutputDirs = true
+            downloadJavadoc = false
+            downloadSources = true
+        }
+    }
+}
+
+idea {
+
+    project {
+        languageLevel = jdkCompatibility
+        vcs = 'svn'
+    }
+
+}
+
+subprojects {
+
+    idea {
+
+        module.iml {
+            withXml { provider ->
+                // mark resource directories as such
+                // cf. https://discuss.gradle.org/t/the-idea-plugin-breaks-the-new-intellij-13-iml-configuration/2456/10
+                def sourceFolder = provider.node.component.content.sourceFolder
+
+
+                def mainResourceFolder = sourceFolder.find { it.@url == 'file://$MODULE_DIR$/src/main/resources' }
+                // in case there is no src/main/resources in this module
+                if (mainResourceFolder != null) {
+                    def atts = mainResourceFolder.attributes()
+                    atts.remove('isTestSource')
+                    atts.put('type', 'java-resource')
+                }
+
+                def testResourceFolder = sourceFolder.find { it.@url == 'file://$MODULE_DIR$/src/test/resources' }
+                // in case there is no src/test/resources in this module
+                if (testResourceFolder != null) {
+                    def atts = testResourceFolder.attributes()
+                    atts.remove('isTestSource')
+                    atts.put('type', 'java-test-resource')
+                }
+			}
+        }
+    }
+}
