@@ -1,32 +1,18 @@
-buildscript {
-    repositories {
-        mavenCentral()
-        jcenter()
-    }
-
-    dependencies {
-        classpath "org.springframework.boot:spring-boot-gradle-plugin:${version_spring_boot}"
-    }
-
-}
-
-apply plugin: "war"
 apply plugin: "org.springframework.boot"
 
 dependencies {
     compile(
             project(":business"),
-            "org.thymeleaf:thymeleaf:${version_thymeleaf}",
+            "org.springframework.boot:spring-boot-starter-web:${version_spring_boot}",
+            "org.springframework.boot:spring-boot-starter-thymeleaf:${version_spring_boot}",
+            "org.springframework.boot:spring-boot-devtools:${version_spring_boot}",
+            "org.webjars:bootstrap:${version_bootstrap}"
     )
 
     runtime(
             //DB
             "mysql:mysql-connector-java:${version_mysql_connector_java}",
             "com.h2database:h2:${version_h2}"
-    )
-
-    providedCompile(
-            "org.springframework.boot:spring-boot-starter-tomcat:${version_spring_boot}",
     )
 
 }
@@ -46,17 +32,4 @@ bootRun {
             "-Dspring.datasource.password=",
             "-Dspring.jpa.hibernate.ddl-auto=update",
             "-Dlogging.level.org.hibernate.SQL=DEBUG"
-}
-
-// create a JAR file instead of putting all class files into WEB-INF
-jar {
-    enabled = true
-    baseName = projectBaseName
-}
-
-war {
-    baseName = projectBaseName
-    from "src/main/webapp"
-    classpath = jar
-    webInf { from 'src/main/webapp/WEB-INF' } // adds a file-set to the WEB-INF dir.
 }

@@ -3,6 +3,21 @@ allprojects {
         mavenCentral()
         jcenter()
     }
+
+
+}
+
+buildscript {
+    repositories {
+        mavenCentral()
+        jcenter()
+    }
+
+    dependencies {
+        classpath "org.springframework.boot:spring-boot-gradle-plugin:${version_spring_boot}"
+        classpath "org.springframework:springloaded:${version_spring_loaded}"
+    }
+
 }
 
 ext {
