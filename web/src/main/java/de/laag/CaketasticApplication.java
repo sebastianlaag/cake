@@ -2,11 +2,11 @@ package de.laag;
 
 import org.springframework.boot.SpringApplication;
 
-import de.laag.config.SpringConfig;
+import de.laag.config.BusinessConfig;
 
 public class CaketasticApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(SpringConfig.class, args);
+        SpringApplication.run(BusinessConfig.class, args);
     }
 }

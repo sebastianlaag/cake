@@ -23,6 +23,8 @@ idea {
 
 subprojects {
 
+    apply plugin: "java"
+
     idea {
 
         module.iml {

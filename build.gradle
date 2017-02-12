@@ -39,5 +39,8 @@ task wrapper(type: Wrapper) {
 }
 
 subprojects {
-    apply plugin: "java"
+    dependencies {
+        testCompile("org.springframework.boot:spring-boot-starter-test:${version_spring_boot}",
+                "org.assertj:assertj-core:${version_assertj}",)
+    }
 }
