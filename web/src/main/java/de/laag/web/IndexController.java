@@ -2,9 +2,6 @@ package de.laag.web;
 
 import java.util.Map;
 
-import de.laag.entities.User;
-import de.laag.service.LoginService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -13,13 +10,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @RequestMapping(value = "/")
 public class IndexController {
 
-    @Autowired
-    private LoginService loginService;
-
     @RequestMapping(method = RequestMethod.GET)
     public String index(Map<String, Object> model) {
-        final User login = loginService.login("Jack", "Bauer");
-        model.put("username", login.getLogin());
         return "index";
     }
 
