@@ -23,9 +23,4 @@ public class LoginService {
         return user;
     }
 
-    public void saveUser(String login, String passwordPlain) {
-        final String hashpw = BCrypt.hashpw(passwordPlain, BCrypt.gensalt(Constants.LOG_ROUNDS));
-        User saveUser = new User(login, hashpw);
-        userRepository.save(saveUser);
-    }
 }

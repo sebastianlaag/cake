@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>user</title>
+</head>
+<body>
+<div id="content">
+    <!--  users  -->
+    <div th:if="${users != null}">
+        <ul>
+            <li th:each="user : ${users}">
+                <a th:href="@{/users/{id}(id=${user.id})}" th:text="${user.login}"></a>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<div th:if="${user != null}">
+    <h3 th:text="${user.login}"></h3>
+</div>
+</body>
+</html>

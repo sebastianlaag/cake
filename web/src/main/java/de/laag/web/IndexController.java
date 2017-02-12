@@ -2,6 +2,7 @@ package de.laag.web;
 
 import java.util.Map;
 
+import de.laag.entities.User;
 import de.laag.service.LoginService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,12 +16,10 @@ public class IndexController {
     @Autowired
     private LoginService loginService;
 
-    private String message = "Hello World";
-
     @RequestMapping(method = RequestMethod.GET)
     public String index(Map<String, Object> model) {
-        loginService.login("Jack", "Bauer");
-        model.put("username", this.message);
+        final User login = loginService.login("Jack", "Bauer");
+        model.put("username", login.getLogin());
         return "index";
     }
 
