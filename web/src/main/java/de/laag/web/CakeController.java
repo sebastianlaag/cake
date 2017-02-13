@@ -1,6 +1,9 @@
 package de.laag.web;
 
-import de.laag.entities.User;
+import java.util.List;
+
+import de.laag.entities.Cake;
+import de.laag.service.CakeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -8,29 +11,28 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import de.laag.entities.User;
 import de.laag.service.UserService;
 
-import java.util.List;
-
 @Controller
-@RequestMapping(value = "/users")
-public class UserController {
+@RequestMapping(value = "/cakes")
+public class CakeController {
 
     @Autowired
-    private UserService userService;
+    private CakeService cakeService;
 
     @RequestMapping(method = RequestMethod.GET)
     public String users(Model model) {
-        final List<User> users = userService.getAllUsers();
-        model.addAttribute("users", users);
-        return "users";
+        final List<Cake> users = cakeService.getAllCakes();
+        model.addAttribute("cakes", users);
+        return "cakes";
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public String getUser(Model model, @PathVariable(value="id") Long id) {
-        User user = userService.getUser(id);
-        model.addAttribute("user", user);
-        return "users";
+    public String getCake(Model model, @PathVariable(value="id") Long id) {
+        Cake cake = cakeService.getCake(id);
+        model.addAttribute("cake", cake);
+        return "cake";
     }
 
 }

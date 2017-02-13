@@ -31,5 +31,6 @@ bootRun {
             "-Dspring.datasource.username=sa",
             "-Dspring.datasource.password=",
             "-Dspring.jpa.hibernate.ddl-auto=update",
+            "-Dspring.datasource.data=file:../persistence/src/main/resources/db/usersAndCakes.sql",
             "-Dlogging.level.org.hibernate.SQL=DEBUG"
 }

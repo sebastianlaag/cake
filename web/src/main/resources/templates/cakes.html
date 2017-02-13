@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Cakes</title>
+</head>
+<body>
+<div id="content">
+    <!--  cakes  -->
+    <div th:if="${cakes != null}">
+        <ul>
+            <li th:each="cake : ${cakes}">
+                <a th:href="@{/cakes/{id}(id=${cake.id})}" th:text="${cake.description}"></a>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<div th:if="${cake != null}">
+    <h3 th:text="${cake.date}"></h3>
+</div>
+</body>
+</html>

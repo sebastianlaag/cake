@@ -1,6 +1,5 @@
 package de.laag.service;
 
-import de.laag.Constants;
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,8 +10,12 @@ import de.laag.repositories.UserRepository;
 @Service
 public class LoginService {
 
-    @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    public LoginService(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
     public User login(String login, String passwordPlain) {
         final User user = userRepository.findByLogin(login);
